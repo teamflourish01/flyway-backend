@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 const homeSchema = new mongoose.Schema(
   {
+    meta_title: {
+      type: String,
+    },
+    meta_description: {
+      type: String,
+    },
     banner_heading: {
       type: String,
     },
@@ -8,6 +14,7 @@ const homeSchema = new mongoose.Schema(
       type: String,
     },
     banner_image: { type: Array },
+    bannerimg_alt: { type: Array },
     best_seller: {
       type: Array,
     },
@@ -20,6 +27,9 @@ const homeSchema = new mongoose.Schema(
     gallery: {
       type: Array,
     },
+    gallery_alt:{
+      type:Array
+    }
   },
   {
     versionKey: false,

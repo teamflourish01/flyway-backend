@@ -1,11 +1,10 @@
-const Choose = require("./chooseSchema")
+const { Testimonial } = require("./testimonialSchema");
 
-exports.addChoose=async(req,res)=>{
+exports.addTestimonial=async(req,res)=>{
     try {
-        console.log(req.file);
         let image=req.file?.filename || ""
 
-        let data=await Choose({...req.body,image} )
+        let data=await Testimonial({...req.body,image} )
         await data.save()
         res.status(200).send({
             data,
@@ -19,29 +18,29 @@ exports.addChoose=async(req,res)=>{
     }
 }
 
-exports.editChoose=async(req,res)=>{
+exports.editTestimonial=async(req,res)=>{
     let {id}=req.params
     let dup={...req.body}
     if(req.file.filename){
         dup={...req.body,image:req.file.filename}
     }
     try {
-        let data=await Choose.findByIdAndUpdate(id,dup,{new:true})
+        let data=await Testimonial.findByIdAndUpdate(id,dup,{new:true})
         res.status(200).send({
             data,
             message:"Item Edited successfully"
         })
     } catch (error) {
-        res.status(error.code).send({
+        res.status(400).send({
             error,
             message:error.message
         })
     }
 }
 
-exports.getChoose=async(req,res)=>{
+exports.getTestimonial=async(req,res)=>{
     try {
-        let data=await Choose.find()
+        let data=await Testimonial.find()
         res.status(200).send({
             data,
             message:"Items archieved Successfully"
@@ -54,10 +53,10 @@ exports.getChoose=async(req,res)=>{
     }
 }
 
-exports.getChooseDetail=async(req,res)=>{
+exports.getTestimonialDetails=async(req,res)=>{
     try {
         let {id}=req.params
-        let data=await Choose.findById(id)
+        let data=await Testimonial.findById(id)
         res.status(200).send({
             data,
             message: "Data Archieved successfully"
@@ -69,10 +68,10 @@ exports.getChooseDetail=async(req,res)=>{
         })
     }
 }
-exports.deleteChoose=async(req,res)=>{
+exports.deleteTestimonial=async(req,res)=>{
     try {
         let {id}=req.params
-        let data=await Choose.findByIdAndDelete(id)
+        let data=await Testimonial.findByIdAndDelete(id)
         res.status(200).send({
             data,
             message: "Data deleted successfully"
