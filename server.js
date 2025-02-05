@@ -12,7 +12,7 @@ const sociallinksRouter = require("./modules/sociallink/sociallink.routes");
 const ourTeamRouter = require("./modules/ourteam/ourteam.routes");
 const emailtwoRouter = require("./modules/email/email.routes");
 const { BlogRouter } = require("./modules/blog/blog.routes");
-
+const policeyRouter = require("./modules/privacypolicy/privacypolicy.routes");
 
 require("dotenv").config("");
 let app = express();
@@ -31,6 +31,7 @@ app.use("/sociallink", sociallinksRouter);
 app.use("/ourteam", ourTeamRouter);
 app.use("/", emailtwoRouter);
 app.use("/", BlogRouter);
+app.use("/policy", policeyRouter);
 
 app.listen(process.env.PORT, async () => {
   console.log(`server listening on ${process.env.PORT}`);
