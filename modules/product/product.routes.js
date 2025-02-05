@@ -11,6 +11,7 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
+
 const fileFilter = (req, file, cb) => {
   if (file.mimetype ) {
     cb(null, true);
@@ -22,14 +23,13 @@ const fileFilter = (req, file, cb) => {
 
 const uploadProduct = multer({
   storage: storage,
-  fileFilter,
 });
 
 ProductRouter.get("/",productController.getProduct)
-ProductRouter.post("/add",productController.addProduct)
+ProductRouter.post("/add",uploadProduct.fields([{name:"image"}]),productController.addProduct)
 ProductRouter.get("/search/:search",productController.searchProduct)
 ProductRouter.delete("/delete/:slug",productController.deleteProduct)
 ProductRouter.get("/:slug",productController.getDetailProduct)
-ProductRouter.post("/edit/:slug",uploadProduct.array({name:"image"}),productController.editProduct)
+ProductRouter.post("/edit/:slug",uploadProduct.fields([{name:"image"}]),productController.editProduct)
 
 module.exports=ProductRouter

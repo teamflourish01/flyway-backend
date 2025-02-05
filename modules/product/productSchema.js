@@ -34,6 +34,9 @@ const productSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
+    image_alt:{
+      type:Array
+    }
   },
   {
     versionKey: false,
