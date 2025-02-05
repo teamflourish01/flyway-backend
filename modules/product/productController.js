@@ -29,25 +29,30 @@ exports.getProduct = async (req, res) => {
 exports.addProduct = async (req, res) => {
   let { name } = req.body;
   try {
-    console.log(req.body);
+    console.log(req.body,"body");
+
+    // let image = file?.image?.map((e) => e?.filename);
+    let dup = JSON.parse(req.body?.dup) || {}; 
+    let obj=dup
+      obj.image=req.files["image"]?.map((e) => e?.filename)||[];
+    console.log(obj.image,"image");
     
-    let file=req.files
-    let image=file?.image.map((e)=>e.filename)
-    let dup=JSON.parse(req.body.dup)
-    let exist = await Product.findOne({ name });
-    if (exist) {
-      res.status(400).send({
-        msg: "Product already exists",
-        exist,
-      });
-    } else {
-      let data = new Product({...dup,image});
+    // let exist = await Product.findOne({ name });
+    // if (exist) {
+    //   res.status(400).send({
+    //     msg: "Product already exists",
+    //     exist,
+    //   });
+    // } else {
+      console.log(obj,"obj");
+      
+      let data = new Product({ ...obj});
       await data.save();
       res.status(200).send({
         msg: "Product saved successfully",
         data,
       });
-    }
+    // }
   } catch (error) {
     res.status(400).send({
       msg: error.message,
@@ -80,10 +85,10 @@ exports.deleteProduct = async (req, res) => {
   try {
     let data = await Product.findOneAndDelete({ slug });
     let id = data?._id;
-    let homeDeletedProduct = await HomeModel.updateMany(
-      {},
-      { $pull: { top_product: slug, our_products: slug } }
-    );
+    // let homeDeletedProduct = await HomeModel.updateMany(
+    //   {},
+    //   { $pull: { top_product: slug, our_products: slug } }
+    // );
     console.log(data);
     res.status(200).send({
       msg: "Product deleted successfully",
@@ -120,16 +125,12 @@ exports.editProduct = async (req, res) => {
     let dup = JSON.parse(req.body.dup);
     let files = req.files;
     console.log(files, "files");
-    let product = files.product?.map((e) => e.filename);
-    let marks = files.marks?.map((e) => e.filename);
+    let product = files["image"]?.map((e) => e.filename);
+    console.log(product,"product");
     if (product) {
       dup.image = [...dup.image, ...product];
     }
-    if (marks) {
-      dup.mark = [...dup.mark, ...marks];
-    }
-    console.log("product", product);
-    console.log("mark", marks);
+  console.log(dup.image,"image");
 
     let data = await Product.findOneAndUpdate(
       { slug },

@@ -7,6 +7,8 @@ const UserRouter = require('./modules/user/User.routes');
 const testimonialRouter = require('./modules/testimonial/testimonial.routes');
 const categoryRouter = require('./modules/category/Category.routes');
 const ProductRouter = require('./modules/product/product.routes');
+const priceRouter = require('./modules/Price/price.routes');
+const additionalRouter = require('./modules/addtional/additional.routes');
 require("dotenv").config("")
 let app=express()
 app.use(express.json())
@@ -19,6 +21,8 @@ app.use("/whychoose",whychooseRouter);
 app.use("/testimonials",testimonialRouter)
 app.use("/category",categoryRouter)
 app.use("/product",ProductRouter)
+app.use("/price",priceRouter)
+app.use("/service",additionalRouter)
 
 app.listen(process.env.PORT,async()=>{
     console.log(`server listening on ${process.env.PORT}`);
