@@ -36,7 +36,19 @@ const productSchema = new mongoose.Schema(
     },
     image_alt:{
       type:Array
-    }
+    },
+    price:[
+      {
+          type:mongoose.Types.ObjectId,
+          ref:"Price"
+      }
+  ],
+    service:[
+      {
+          type:mongoose.Types.ObjectId,
+          ref:"Addition"
+      }
+  ]
   },
   {
     versionKey: false,

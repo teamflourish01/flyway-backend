@@ -15,21 +15,17 @@ const homeSchema = new mongoose.Schema(
     },
     banner_image: { type: Array },
     bannerimg_alt: { type: Array },
-    best_seller: {
-      type: Array,
-    },
-    new_arrival: {
-      type: Array,
-    },
+    best_seller: [{ type: mongoose.Schema.ObjectId, ref: "product" }],
+    new_arrival: [{ type: mongoose.Schema.ObjectId, ref: "product" }],
     marque: {
       type: Array,
     },
     gallery: {
       type: Array,
     },
-    gallery_alt:{
-      type:Array
-    }
+    gallery_alt: {
+      type: Array,
+    },
   },
   {
     versionKey: false,

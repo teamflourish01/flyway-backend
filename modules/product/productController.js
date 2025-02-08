@@ -6,13 +6,13 @@ exports.getProduct = async (req, res) => {
       let data = await Product.find()
         .skip((page - 1) * 12)
         .limit(12)
-        .populate("category");
+        .populate(["category","service","price"]);
       res.status(200).send({
         msg: "Product retrieved successfully",
         data,
       });
     } else {
-      let data = await Product.find().populate("category");
+      let data = await Product.find().populate(["category","service","price"]);
       res.status(200).send({
         msg: "Product retrieved successfully",
         data,
@@ -105,7 +105,7 @@ exports.deleteProduct = async (req, res) => {
 exports.getDetailProduct = async (req, res) => {
   let { slug } = req.params;
   try {
-    let data = await Product.findOne({ slug }).populate("category");
+    let data = await Product.findOne({ slug }).populate([,"service","price"]);
     res.status(200).send({
       msg: "Single Product Retrived",
       data,

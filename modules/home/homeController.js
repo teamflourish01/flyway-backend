@@ -32,7 +32,6 @@ exports.editHome = async (req, res) => {
     }
     let data = await Home.findByIdAndUpdate(id, { ...dup }, { new: true });
     console.log(data, "data");
-
     res.status(200).send({
       data,
       message: "Page added successfully",
@@ -62,8 +61,10 @@ exports.getHome = async (req, res) => {
 
 exports.getHomeSingle = async (req, res) => {
   let { id } = req.params;
+  console.log(id);
+  
   try {
-    let data = await Home.findById(id);
+    let data = await Home.findOne({"_id":id}).populate(["best_seller","new_arrival"])
     res.status(200).json({ msg: "Single Home item get", data });
   } catch (error) {
     res.status(400).json({

@@ -1,3 +1,4 @@
+const Product = require("../product/productSchema")
 const Price = require("./priceSchema")
 
 exports.addPrice=async(req,res)=>{
@@ -70,6 +71,7 @@ exports.deletePrice=async(req,res)=>{
     let {id}=req.params
     try {
         let data=await Price.findByIdAndDelete(id)
+        let homeDeletedProduct=await Product.updateMany({},{$pull:{price:id}})
         res.status(200).send({
             message:"Price Deleted successfully",
             data
