@@ -61,7 +61,7 @@ exports.getHome = async (req, res) => {
 
 exports.getHomeSingle = async (req, res) => {
   let { id } = req.params;
-  console.log(id);
+
   
   try {
     let data = await Home.findOne({"_id":id}).populate(["best_seller","new_arrival"])
