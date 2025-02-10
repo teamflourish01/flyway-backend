@@ -105,7 +105,7 @@ exports.deleteProduct = async (req, res) => {
 exports.getDetailProduct = async (req, res) => {
   let { slug } = req.params;
   try {
-    let data = await Product.findOne({ slug }).populate([,"service","price"]);
+    let data = await Product.findOne({ slug }).populate(["category","service","price"]);
     res.status(200).send({
       msg: "Single Product Retrived",
       data,
