@@ -2,7 +2,8 @@ const { Testimonial } = require("./testimonialSchema");
 
 exports.addTestimonial=async(req,res)=>{
     try {
-        let image=req.file?.filename || ""
+        
+        let image=req?.file?.filename || ""
 
         let data=await Testimonial({...req.body,image} )
         await data.save()
@@ -21,8 +22,8 @@ exports.addTestimonial=async(req,res)=>{
 exports.editTestimonial=async(req,res)=>{
     let {id}=req.params
     let dup={...req.body}
-    if(req.file.filename){
-        dup={...req.body,image:req.file.filename}
+    if(req?.file){
+        dup={...req.body,image:req.files.filename}
     }
     try {
         let data=await Testimonial.findByIdAndUpdate(id,dup,{new:true})

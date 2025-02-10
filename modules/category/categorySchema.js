@@ -18,6 +18,9 @@ const CategorySchema = new mongoose.Schema(
       type: Number,
       // required: true,
     },
+    products:{
+      type:Array
+    },
     slug:{
       type:String,
       unique: true,

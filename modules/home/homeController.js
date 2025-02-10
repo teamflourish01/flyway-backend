@@ -46,7 +46,7 @@ exports.editHome = async (req, res) => {
 
 exports.getHome = async (req, res) => {
   try {
-    let data = await Home.find();
+    let data = await Home.find().populate(["best_seller","new_arrival"]);
     res.status(200).send({
       data,
       message: "Data retrived successfully",
@@ -62,7 +62,6 @@ exports.getHome = async (req, res) => {
 exports.getHomeSingle = async (req, res) => {
   let { id } = req.params;
 
-  
   try {
     let data = await Home.findOne({"_id":id}).populate(["best_seller","new_arrival"])
     res.status(200).json({ msg: "Single Home item get", data });

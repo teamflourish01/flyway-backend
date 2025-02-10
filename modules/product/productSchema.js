@@ -37,6 +37,15 @@ const productSchema = new mongoose.Schema(
     image_alt:{
       type:Array
     },
+    type:{
+      type:String
+    },
+    language:{
+      type:String
+    },
+    videoLink:{
+      type:String
+    },
     price:[
       {
           type:mongoose.Types.ObjectId,
