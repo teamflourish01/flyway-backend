@@ -1,20 +1,20 @@
-const privacyModel = require("./privacypolicySchema");
+const termsconditionModel = require("./termsconditionSchema");
 
 exports.addpolicy = async (req, res) => {
   try {
-    const newPrivacypolicy = new privacyModel({ ...req.body });
+    const newPrivacypolicy = new termsconditionModel({ ...req.body });
     const data = await newPrivacypolicy.save();
     res.status(201).json({ msg: "Add Succesfuly", data });
   } catch (error) {
-    console.error("Not Add Privacy Policey", error);
+    console.error("Not Add Terms & Condition", error);
     res.status(500).json({ msg: error.message, error });
   }
 };
 
 exports.getData = async (req, res) => {
   try {
-    let data = await privacyModel.find({});
-    res.status(200).json({ msg: "Prvacy Poliecy Fetch Successful", data });
+    let data = await termsconditionModel.find({});
+    res.status(200).json({ msg: "Terms & Condition Fetch Successful", data });
   } catch (error) {
     res.status(500).json({
       msg: error.message,
@@ -26,8 +26,8 @@ exports.getData = async (req, res) => {
 exports.getSingleData = async (req, res) => {
   const { id } = req.params;
   try {
-    let data = await privacyModel.findById(id);
-    res.status(200).json({ msg: "Privacy policy Fetch Single Data", data });
+    let data = await termsconditionModel.findById(id);
+    res.status(200).json({ msg: "Terms & Condition Fetch Single Data", data });
   } catch (error) {
     res.status(500).json({
       msg: error.message,
@@ -38,15 +38,15 @@ exports.getSingleData = async (req, res) => {
 exports.editPolicy = async (req, res) => {
   try {
     const { id } = req.params; 
-    const updatedPolicy = await privacyModel.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedPolicy = await termsconditionModel.findByIdAndUpdate(id, req.body, { new: true });
 
     if (!updatedPolicy) {
-      return res.status(404).json({ msg: "Policy not found" });
+      return res.status(404).json({ msg: "Terms Condition not found" });
     }
 
     res.status(200).json({ msg: "Edit Successful", data: updatedPolicy });
   } catch (error) {
-    console.error("Error editing Privacy Policy", error);
+    console.error("Error editing Terms & Condition", error);
     res.status(500).json({ msg: error.message, error });
   }
 };

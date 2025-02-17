@@ -1,11 +1,11 @@
 const express = require("express");
-const policeyRouter = express.Router();
-const privacyController = require("../privacypolicy/privacypoliyController");
+const refundpoliceyRouter = express.Router();
+const privacyController = require("../refundpolicy/refundpoliyController");
 
-policeyRouter
+refundpoliceyRouter
   .get("/", privacyController.getData)
   .post("/add", privacyController.addpolicy)
   .get("/:id", privacyController.getSingleData)
   .put("/edit/:id", privacyController.editPolicy);
 
-module.exports = policeyRouter;
+module.exports = refundpoliceyRouter;
