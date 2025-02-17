@@ -45,6 +45,7 @@ exports.getCategory = async (req, res) => {
             as: "products",
           },
         },
+
       ]);
       res.status(200).send({
         msg: "Category successfully retrieved",
@@ -62,7 +63,17 @@ exports.getCategory = async (req, res) => {
 exports.getSingleCategory = async (req, res) => {
   let { slug } = req.params;
   try {
-    let data = await Category.findOne({ slug });
+    let data = await Category.aggregate([
+      {$match:{slug}},
+      {
+        $lookup: {
+          from: "products",
+          localField: "_id",
+          foreignField: "category",
+          as: "products",
+        },
+      },
+    ]);
     res.status(200).send({
       msg: "Category successfully retrieved",
       data,
