@@ -17,6 +17,8 @@ const ourTeamRouter = require("./modules/ourteam/ourteam.routes");
 const emailtwoRouter = require("./modules/email/email.routes");
 const { BlogRouter } = require("./modules/blog/blog.routes");
 const policeyRouter = require("./modules/privacypolicy/privacypolicy.routes");
+const trmsconditionRouter = require('./modules/termscondtion/termscondition.routes');
+const refundpoliceyRouter = require('./modules/refundpolicy/refundpolicy.routes');
 
 
 require("dotenv").config("");
@@ -41,7 +43,8 @@ app.use("/ourteam", ourTeamRouter);
 app.use("/", emailtwoRouter);
 app.use("/", BlogRouter);
 app.use("/policy", policeyRouter);
-
+app.use("/termscondition",trmsconditionRouter)
+app.use("/refundpolicy",refundpoliceyRouter)
 
 app.listen(process.env.PORT, async () => {
   console.log(`server listening on ${process.env.PORT}`);
