@@ -20,6 +20,9 @@ const homeSchema = new mongoose.Schema(
     marque: {
       type: Array,
     },
+    about_video:{
+      type:String
+    },
     gallery: {
       type: Array,
     },
